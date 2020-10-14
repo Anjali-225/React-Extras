@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
 const NoteApp = () => {
-    const [notes, setNotes] = useState([])
+    const notesData = JSON.parse(localStorage.getItem('notes'))
+    const [notes, setNotes] = useState([notesData || []])
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
 
@@ -20,6 +21,10 @@ const NoteApp = () => {
     const removeNote = (title) => {
         setNotes(notes.filter((note) => note.title !== title))
     }
+
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    })
 
     return (
         <div>
@@ -43,8 +48,12 @@ const NoteApp = () => {
 
 // const App = (props) => {
 //     const [count, setCount] = useState(props.count)
-
 //     const [text, setText] = useState('')
+
+//     useEffect(() => {
+//         console.log('useEffect ran')
+//         document.title = count
+//     })
 
 //     const increment = () => {
 //         setCount(count + 1)
@@ -73,7 +82,7 @@ const NoteApp = () => {
 //     count: 0
 // }
 
-// ReactDOM.render(<App count={2} />, document.getElementById('root'));
+// ReactDOM.render(<App count={0} />, document.getElementById('root'));
 ReactDOM.render(<NoteApp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
