@@ -7,12 +7,12 @@ const Note = ({ note }) => {
     const position = useMousePosition()
 
     return (
-        <div>
+        <>
             <h3>{note.title}</h3>
             <p>{note.body}</p>
             <p>{position.x}, {position.y}</p>
             <button onClick={() => dispatch({ type:'REMOVE_NOTES', title: note.title })} >x</button>
-        </div>
+        </>
     )
 }
 
